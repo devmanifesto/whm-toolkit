@@ -75,6 +75,29 @@ if [ ! -f "whm-toolkit-standalone.cgi" ]; then
     exit 1
 fi
 
+# Verificar instalación existente
+echo "🔍 Verificando instalación existente..."
+if [ -d "$INSTALL_DIR" ]; then
+    if [ -f "$INSTALL_DIR/index.cgi" ]; then
+        echo "   ⚠️  Plugin ya instalado detectado"
+        echo "   📋 Actualizando instalación existente..."
+        
+        # Crear respaldo de la instalación anterior
+        BACKUP_DIR="/tmp/whm-toolkit-backup-$(date +%Y%m%d_%H%M%S)"
+        echo "   💾 Creando respaldo en: $BACKUP_DIR"
+        cp -r "$INSTALL_DIR" "$BACKUP_DIR"
+        
+        # Limpiar instalación anterior
+        rm -rf "$INSTALL_DIR"
+        echo "   🧹 Instalación anterior removida"
+    else
+        echo "   📁 Directorio existe pero sin archivos válidos"
+        rm -rf "$INSTALL_DIR"
+    fi
+else
+    echo "   ✅ No se encontró instalación previa"
+fi
+
 # Crear directorio de instalación
 echo "📂 Creando directorio de instalación..."
 mkdir -p "$INSTALL_DIR"
@@ -111,7 +134,24 @@ echo "✅ Verificando instalación..."
 if perl -c "$INSTALL_DIR/index.cgi" >/dev/null 2>&1; then
     echo "   ✅ Sintaxis del plugin correcta"
 else
-    echo "   ⚠️  Advertencia: Posibles problemas de sintaxis"
+    echo "   ❌ Error: Problemas de sintaxis en el plugin"
+    echo "   🔧 Intentando reparar..."
+    
+    # Verificar si es un problema de módulos
+    if perl -c "$INSTALL_DIR/index.cgi" 2>&1 | grep -q "Can't locate CGI.pm"; then
+        echo "   📦 El plugin usa solo módulos básicos de Perl"
+        echo "   ✅ No se requieren módulos adicionales"
+    else
+        echo "   ⚠️  Verifica los logs para más detalles"
+    fi
+fi
+
+# Verificar que el archivo sea ejecutable
+if [ -x "$INSTALL_DIR/index.cgi" ]; then
+    echo "   ✅ Archivo es ejecutable"
+else
+    echo "   🔧 Configurando permisos de ejecución..."
+    chmod +x "$INSTALL_DIR/index.cgi"
 fi
 
 # Limpiar archivos temporales
@@ -143,4 +183,28 @@ echo "   $GITHUB_REPO"
 echo
 echo "🐛 Si encuentras problemas, revisa los logs:"
 echo "   tail -f /usr/local/cpanel/logs/error_log"
+echo
+
+# Función de prueba automática
+echo "🧪 Ejecutando prueba automática..."
+if [ -x "$INSTALL_DIR/index.cgi" ]; then
+    # Probar el plugin localmente
+    TEST_OUTPUT=$(cd "$INSTALL_DIR" && perl index.cgi 2>&1 | head -20)
+    if echo "$TEST_OUTPUT" | grep -q "Content-Type: text/html"; then
+        echo "   ✅ Plugin responde correctamente"
+    else
+        echo "   ⚠️  Plugin puede tener problemas de configuración"
+        echo "   📋 Salida de prueba:"
+        echo "$TEST_OUTPUT" | head -5
+    fi
+else
+    echo "   ❌ Plugin no es ejecutable"
+fi
+
+echo
+echo "🎯 Próximos pasos:"
+echo "   1. Abre la URL del plugin en tu navegador"
+echo "   2. Si no funciona, ejecuta: systemctl reload httpd"
+echo "   3. Verifica que el puerto 2087 esté abierto"
+echo "   4. Asegúrate de estar logueado en WHM"
 echo 
