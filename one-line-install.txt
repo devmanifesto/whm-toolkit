@@ -13,11 +13,14 @@ wget https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/install_fro
 
 ## 🗑️ Desinstalación
 
-### Opción 1: Con wget
+### Opción 1: Desinstalación automática (recomendada para pipes)
+wget -qO- https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/uninstall_auto.sh | bash
+
+### Opción 2: Desinstalación con confirmación (interactiva)
 wget -qO- https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/uninstall_from_github.sh | bash
 
-### Opción 2: Con curl
-curl -sSL https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/uninstall_from_github.sh | bash
+### Opción 3: Con curl
+curl -sSL https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/uninstall_auto.sh | bash
 
 ## ✨ Características del instalador:
 - ✅ Detecta instalaciones existentes

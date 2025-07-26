@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# WHM Toolkit - Desinstalador
+# WHM Toolkit - Desinstalador Automático
 # Repositorio: https://github.com/devmanifesto/whm-toolkit
 
 set -e
@@ -9,7 +9,7 @@ PLUGIN_NAME="WHM Toolkit"
 INSTALL_DIR="/usr/local/cpanel/whostmgr/docroot/cgi/whm-toolkit"
 
 echo "=========================================="
-echo "  Desinstalación de $PLUGIN_NAME"
+echo "  Desinstalación Automática de $PLUGIN_NAME"
 echo "=========================================="
 echo
 
@@ -23,24 +23,11 @@ fi
 # Verificar si está instalado
 if [ ! -d "$INSTALL_DIR" ]; then
     echo "ℹ️  El plugin no está instalado en $INSTALL_DIR"
+    echo "✅ No hay nada que desinstalar"
     exit 0
 fi
 
 echo "🔍 Plugin encontrado en: $INSTALL_DIR"
-
-# Confirmar desinstalación (modo automático para instalación desde pipe)
-if [ -t 0 ]; then
-    # Si se ejecuta interactivamente, pedir confirmación
-    read -p "¿Estás seguro de que quieres desinstalar $PLUGIN_NAME? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "❌ Desinstalación cancelada"
-        exit 0
-    fi
-else
-    # Si se ejecuta desde pipe, continuar automáticamente
-    echo "⚠️  Ejecutando en modo automático (sin confirmación)"
-fi
 
 # Crear respaldo
 BACKUP_DIR="/tmp/whm-toolkit-uninstall-backup-$(date +%Y%m%d_%H%M%S)"
