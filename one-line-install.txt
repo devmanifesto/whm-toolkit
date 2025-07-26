@@ -1,0 +1,10 @@
+# Instalación de una línea del WHM Toolkit desde GitHub
+
+## Opción 1: Con wget
+wget -qO- https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/install_from_github.sh | bash
+
+## Opción 2: Con curl
+curl -sSL https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/install_from_github.sh | bash
+
+## Opción 3: Descarga y ejecuta
+wget https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/install_from_github.sh && chmod +x install_from_github.sh && ./install_from_github.sh 
