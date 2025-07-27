@@ -58,7 +58,10 @@ mv whm-toolkit-main/* .
 
 # Instalar archivo principal
 echo "📋 Instalando archivo principal..."
-if [ -f "whm-toolkit-integrated.cgi" ]; then
+if [ -f "whm-toolkit-hybrid.cgi" ]; then
+    echo "   Usando versión híbrida (WHM Framework + Standalone fallback)..."
+    cp "whm-toolkit-hybrid.cgi" "$WHM_CGI_DIR/addon_whm_toolkit.cgi"
+elif [ -f "whm-toolkit-integrated.cgi" ]; then
     echo "   Usando versión integrada con WHM Framework..."
     cp "whm-toolkit-integrated.cgi" "$WHM_CGI_DIR/addon_whm_toolkit.cgi"
 else
