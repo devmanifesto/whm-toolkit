@@ -159,6 +159,8 @@ summary=Herramientas útiles para administración de WHM
 description=Un conjunto completo de herramientas para administradores de sistemas que utilizan WHM
 url=https://github.com/devmanifesto/whm-toolkit
 support=https://github.com/devmanifesto/whm-toolkit/issues
+service=whostmgr
+url=addonfeatures/whm-toolkit/whm-toolkit.cgi
 
 [app]
 name=WHM_Toolkit
@@ -168,6 +170,8 @@ summary=Herramientas útiles para administración de WHM
 description=Un conjunto completo de herramientas para administradores de sistemas que utilizan WHM
 url=https://github.com/devmanifesto/whm-toolkit
 support=https://github.com/devmanifesto/whm-toolkit/issues
+service=whostmgr
+url=addonfeatures/whm-toolkit/whm-toolkit.cgi
 
 [script]
 type=whm
