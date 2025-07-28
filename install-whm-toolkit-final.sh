@@ -18,6 +18,46 @@ if [ ! -d "/usr/local/cpanel" ]; then
     exit 1
 fi
 
+echo "🔍 Verificando dependencias de Perl..."
+
+# Verificar si CGI.pm está disponible
+if ! perl -MCGI -e 'print "CGI module OK\n"' >/dev/null 2>&1; then
+    echo "   ⚠️ Módulo CGI de Perl no encontrado"
+    echo "   📦 Instalando módulo CGI..."
+    
+    # Intentar instalar CGI usando diferentes métodos
+    if command -v yum >/dev/null 2>&1; then
+        yum install -y perl-CGI >/dev/null 2>&1 || true
+    elif command -v dnf >/dev/null 2>&1; then
+        dnf install -y perl-CGI >/dev/null 2>&1 || true
+    elif command -v apt-get >/dev/null 2>&1; then
+        apt-get update >/dev/null 2>&1 && apt-get install -y libcgi-pm-perl >/dev/null 2>&1 || true
+    fi
+    
+    # Verificar nuevamente
+    if perl -MCGI -e 'print "CGI module OK\n"' >/dev/null 2>&1; then
+        echo "   ✅ Módulo CGI instalado exitosamente"
+    else
+        echo "   ⚠️ No se pudo instalar automáticamente el módulo CGI"
+        echo "   💡 Instalando usando CPAN..."
+        echo "yes" | cpan CGI >/dev/null 2>&1 || true
+        
+        # Verificación final
+        if perl -MCGI -e 'print "CGI module OK\n"' >/dev/null 2>&1; then
+            echo "   ✅ Módulo CGI instalado via CPAN"
+        else
+            echo "   ❌ Error: No se pudo instalar el módulo CGI"
+            echo "   🔧 Instalar manualmente con:"
+            echo "      yum install perl-CGI -y"
+            echo "      o"
+            echo "      cpan CGI"
+            exit 1
+        fi
+    fi
+else
+    echo "   ✅ Módulo CGI de Perl disponible"
+fi
+
 echo "🧹 Limpieza completa de versiones anteriores..."
 
 # Desregistrar todas las versiones posibles
