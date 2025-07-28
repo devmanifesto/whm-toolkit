@@ -1,54 +1,89 @@
-# WHM Toolkit Plugin
+# WHM Toolkit v2
 
-Plugin completo para WHM (cPanel) con herramientas útiles para administración del servidor.
+Plugin optimizado para WHM (cPanel) con estructura correcta y funcional.
 
-## 🚀 Instalación Rápida
+## 🚀 **Instalación Rápida**
 
+### **Instalar desde GitHub:**
 ```bash
-# Instalación en una línea
-wget -qO- https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/install_correct.sh | bash
+wget -qO- https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/install-v2.sh | bash
 ```
 
-## Características
-
-- ✅ **Estructura oficial de plugins WHM**
-- ✅ **Sin dependencias externas**
-- ✅ **Instalación automática**
-- ✅ **Interfaz moderna integrada con WHM**
-- ✅ **Hello World + Información del Sistema**
-
-## Herramientas Incluidas
-
-- 🚀 **Hello World**: Prueba básica del plugin
-- 📊 **Información del Sistema**: Datos del servidor en tiempo real
-- 🌐 **Más herramientas**: En desarrollo
-
-## Desinstalación
-
+### **Desinstalar:**
 ```bash
-wget -qO- https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/uninstall_correct.sh | bash
+wget -qO- https://raw.githubusercontent.com/devmanifesto/whm-toolkit/main/uninstall-v2.sh | bash
 ```
 
-## Estructura Instalada
+## 🎯 **Características**
+
+- ✅ **Estructura optimizada**: Usa la estructura `/docroot/cgi/` correcta
+- ✅ **Configuración AppConfig**: Registro correcto en WHM
+- ✅ **Interfaz moderna**: Diseño responsivo y profesional
+- ✅ **Hello World**: Prueba básica de funcionamiento
+- ✅ **Información del Sistema**: Datos del servidor en tiempo real
+- ✅ **Sin dependencias**: Solo usa módulos base de WHM
+
+## 📁 **Estructura del Plugin**
 
 ```
-/usr/local/cpanel/whostmgr/addonfeatures/whm-toolkit/
-├── whm-toolkit.cgi          # Plugin principal
-├── whm-toolkit.conf         # Configuración
-├── icon_24.png             # Iconos
-└── icon_32.png
+/usr/local/cpanel/whostmgr/docroot/cgi/addon_whm_toolkit.cgi
+/var/cpanel/apps/whm_toolkit_v2.conf
 ```
 
-## Acceso
+## 🌐 **Acceso**
 
-1. **En WHM**: Plugins → WHM_Toolkit
-2. **Directo**: `https://tu-servidor:2087/addonfeatures/whm-toolkit/whm-toolkit.cgi`
+- **Menú WHM**: Plugins → WHM_Toolkit_v2
+- **URL Directa**: `https://tu-servidor:2087/cgi/addon_whm_toolkit.cgi`
 
-## Soporte
+## 🔧 **Herramientas Incluidas**
 
-- GitHub: https://github.com/devmanifesto/whm-toolkit
-- Logs: `/usr/local/cpanel/logs/error_log`
+1. **🚀 Hello World** - Prueba básica del plugin
+2. **📊 Información del Sistema** - Datos del servidor
+3. **🌐 Gestor de Dominios** - (Próximamente)
+4. **📈 Monitor de Recursos** - (Próximamente)
+5. **💾 Backup Manager** - (Próximamente)
+6. **🔒 Security Scanner** - (Próximamente)
 
-## Versión
+## 📋 **Requisitos**
 
-**v1.0.0** - Estructura oficial WHM, estable y funcional
+- WHM/cPanel 11.0 o superior
+- Acceso root al servidor
+- Perl con módulo CGI
+
+## 🛠️ **Desarrollo**
+
+### **Archivos del Proyecto:**
+- `whm-toolkit-v2.cgi` - Plugin principal
+- `whm-toolkit-v2.conf` - Configuración AppConfig
+- `install-v2.sh` - Instalador
+- `uninstall-v2.sh` - Desinstalador
+- `analyze_real_plugins.md` - Análisis de plugins reales
+
+### **Estructura de Desarrollo:**
+```
+whm-toolkit/
+├── whm-toolkit-v2.cgi
+├── whm-toolkit-v2.conf
+├── install-v2.sh
+├── uninstall-v2.sh
+├── analyze_real_plugins.md
+└── README.md
+```
+
+## 🔄 **Actualizaciones**
+
+### **v2.0.0** - Refactory Completo
+- ✅ Estructura `/docroot/cgi/` correcta
+- ✅ Configuración AppConfig optimizada
+- ✅ Plugin funcional con Hello World
+- ✅ Interfaz moderna y responsiva
+- ✅ Limpieza completa de versiones anteriores
+
+## 📞 **Soporte**
+
+- **GitHub**: https://github.com/devmanifesto/whm-toolkit
+- **Issues**: https://github.com/devmanifesto/whm-toolkit/issues
+
+## 📄 **Licencia**
+
+Este proyecto es de código abierto y está disponible bajo la licencia MIT.
