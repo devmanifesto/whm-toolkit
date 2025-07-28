@@ -95,8 +95,10 @@ echo "🎨 Etapa 5: Creando iconos..."
 # Crear iconos simples (archivos PNG mínimos válidos)
 printf '\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x18\x00\x00\x00\x18\x08\x06\x00\x00\x00\xe0w=\xf8\x00\x00\x00\tpHYs\x00\x00\x0b\x13\x00\x00\x0b\x13\x01\x00\x9a\x9c\x18\x00\x00\x00\x19tEXtSoftware\x00www.inkscape.org\x9b\xee<\x1a\x00\x00\x00\rIDAT8\x8d\x63\x00\x01\x00\x00\x05\x00\x01\r\n-\xdb\x00\x00\x00\x00IEND\xaeB`\x82' > "$PLUGIN_DIR/icon_24.png"
 cp "$PLUGIN_DIR/icon_24.png" "$PLUGIN_DIR/icon_32.png"
-chmod 644 "$PLUGIN_DIR/icon_*.png"
-chown root:root "$PLUGIN_DIR/icon_*.png"
+chmod 644 "$PLUGIN_DIR/icon_24.png"
+chmod 644 "$PLUGIN_DIR/icon_32.png"
+chown root:root "$PLUGIN_DIR/icon_24.png"
+chown root:root "$PLUGIN_DIR/icon_32.png"
 
 echo "📝 Etapa 6: Instalando configuración AppConfig..."
 # Copiar configuración AppConfig al directorio oficial
@@ -122,10 +124,28 @@ fi
 
 echo "✅ Etapa 9: Verificación final..."
 echo "📋 Archivos instalados:"
-echo "   Plugin CGI: $(ls -la $PLUGIN_DIR/whm-toolkit.cgi 2>/dev/null && echo "✅" || echo "❌")"
-echo "   Plugin Config: $(ls -la $PLUGIN_DIR/whm-toolkit.conf 2>/dev/null && echo "✅" || echo "❌")"
-echo "   AppConfig: $(ls -la $APPCONFIG_DIR/whm_toolkit.conf 2>/dev/null && echo "✅" || echo "❌")"
-echo "   Iconos: $(ls -la $PLUGIN_DIR/icon_*.png 2>/dev/null | wc -l) archivos"
+if [ -f "$PLUGIN_DIR/whm-toolkit.cgi" ]; then
+    echo "   Plugin CGI: ✅"
+else
+    echo "   Plugin CGI: ❌"
+fi
+
+if [ -f "$PLUGIN_DIR/whm-toolkit.conf" ]; then
+    echo "   Plugin Config: ✅"
+else
+    echo "   Plugin Config: ❌"
+fi
+
+if [ -f "$APPCONFIG_DIR/whm_toolkit.conf" ]; then
+    echo "   AppConfig: ✅"
+else
+    echo "   AppConfig: ❌"
+fi
+
+ICON_COUNT=0
+[ -f "$PLUGIN_DIR/icon_24.png" ] && ICON_COUNT=$((ICON_COUNT + 1))
+[ -f "$PLUGIN_DIR/icon_32.png" ] && ICON_COUNT=$((ICON_COUNT + 1))
+echo "   Iconos: $ICON_COUNT/2 archivos"
 
 echo "🧪 Probando sintaxis del CGI..."
 if perl -c "$PLUGIN_DIR/whm-toolkit.cgi" 2>/dev/null; then
