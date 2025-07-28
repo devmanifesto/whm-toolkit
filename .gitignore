@@ -1,0 +1,48 @@
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+*.swo
+*~
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de desarrollo
+*.code-workspace
+.vscode/
+.idea/
+whm-toolkit.code-workspace
+
+# Archivos de backup
+*.orig
+*.backup
+
+# Archivos específicos del servidor
+/tmp/
+/logs/
+error_log
+access_log
+
+# Archivos de configuración local
+local.conf
+dev.conf
+test.conf
+
+# Archivos compilados o generados
+*.o
+*.so
+*.exe
+*.dll
+
+# Directorios de dependencias
+node_modules/
+vendor/
+
+# Archivos de cache
+cache/
+*.cache
