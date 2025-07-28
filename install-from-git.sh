@@ -63,11 +63,22 @@ done
 
 echo "🚀 Ejecutando instalación..."
 
-# Hacer ejecutable el script de instalación
-chmod +x install-whm-toolkit-final.sh
+# Hacer ejecutables todos los scripts
+chmod +x *.sh
 
-# Ejecutar instalación
-if ./install-whm-toolkit-final.sh; then
+# Verificar que el script principal sea ejecutable
+if [ ! -x "install-whm-toolkit-final.sh" ]; then
+    echo "   ❌ Error: No se pudieron establecer permisos de ejecución"
+    echo "   🔧 Ejecutando manualmente..."
+    bash install-whm-toolkit-final.sh
+    INSTALL_RESULT=$?
+else
+    # Ejecutar instalación
+    ./install-whm-toolkit-final.sh
+    INSTALL_RESULT=$?
+fi
+
+if [ $INSTALL_RESULT -eq 0 ]; then
     echo
     echo "==========================================="
     echo "  ✅ INSTALACIÓN DESDE GIT COMPLETADA"
